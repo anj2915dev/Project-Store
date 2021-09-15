@@ -1,11 +1,15 @@
 const productCenter = document.querySelector(".product-center")
+const btnCart = document.querySelector(".cart-btn")
+const basket = document.querySelector(".module-dom")
+const section = document.querySelector("section")
+const body = document.querySelector("body")
 
 import { Products } from "./productData.js";
 
 
 
 //  read product 
-class products{
+class products {
     get readProduct() {
         return Products;
     }
@@ -50,12 +54,38 @@ class UI {
 }
 
 
+class storage {
+    // saved product in storage
+    static savedStorage(products) {
+        localStorage.setItem("products", JSON.stringify(products))
+    }
+
+}
+
+
 
 document.addEventListener("DOMContentLoaded", event => {
     const pruduct = new products();
-    const productData=pruduct.readProduct
-    const ui=new UI()
+    const productData = pruduct.readProduct
+    const ui = new UI()
     ui.showProduct(productData)
+    storage.savedStorage(productData);
 
 })
 
+btnCart.addEventListener("click", addToCart);
+function addToCart(e) {
+    basket.style.transform = "translateY(20vh)";
+    basket.style.opacity = "1";
+    basket.classList.add("close");
+
+
+}
+section.addEventListener("click", closeBasket);
+
+function closeBasket() {
+
+    basket.style.transform = "translateY(-100vh)";
+    basket.style.opacity = "0";
+
+}
