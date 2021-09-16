@@ -4,9 +4,10 @@ const basket = document.querySelector(".module-dom")
 const section = document.querySelector("section")
 const body = document.querySelector("body")
 
+
 import { Products } from "./productData.js";
 
-
+let Cart = [];
 
 //  read product 
 class products {
@@ -49,6 +50,28 @@ class UI {
 
         })
     }
+    addBasket() {
+        const btnAdd = document.querySelectorAll(".add-to-cart")
+
+        const btnItem = [...btnAdd]
+        btnItem.forEach(btn => {
+            const ischeked = Cart.find(item => {
+
+            })
+
+
+            btn.addEventListener("click", addcart => {
+
+                const id = btn.dataset.id
+                btn.innerText = "اضافه شده";
+                const str = new storage();
+                // read product Previous and product new th
+                const productItem = str.getproductCart(id);
+                const basketProductSaved = [...Cart, { productItem, Cart }]
+
+            })
+        });
+    }
 
 
 }
@@ -58,6 +81,14 @@ class storage {
     // saved product in storage
     static savedStorage(products) {
         localStorage.setItem("products", JSON.stringify(products))
+    }
+    // read product in basket
+    getproductCart(id) {
+        const _products = Cart.find(p => p.id === parseInt(id))
+        JSON.parse(localStorage.getItem(_products))
+    }
+    static setProductCart(Cart) {
+        return localStorage.setItem(("carts"), JSON.stringify(Cart))
     }
 
 }
@@ -70,6 +101,9 @@ document.addEventListener("DOMContentLoaded", event => {
     const ui = new UI()
     ui.showProduct(productData)
     storage.savedStorage(productData);
+    ui.addBasket();
+  
+
 
 })
 
@@ -89,3 +123,6 @@ function closeBasket() {
     basket.style.opacity = "0";
 
 }
+
+
+
