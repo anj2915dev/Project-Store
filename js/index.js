@@ -55,20 +55,23 @@ class UI {
 
         const btnItem = [...btnAdd]
         btnItem.forEach(btn => {
-            const ischeked = Cart.find(item => {
+            const id = btn.dataset.id
 
-            })
+            const ischeked = Cart.find(item => item.id ===parseInt)
+            if (ischeked) {
+                btn.innerText = "aaaaaaaaaaa"
+                btn.style.color="red"
+            }
 
 
             btn.addEventListener("click", addcart => {
 
-                const id = btn.dataset.id
-                btn.innerText = "اضافه شده";
                 const str = new storage();
                 // read product Previous and product new th
                 const productItem = str.getproductCart(id);
-                const basketProductSaved = [...Cart, { productItem, Cart }]
-
+                console.log(productItem)
+                Cart = [...Cart, { productItem, quantity: 1 }]
+                storage.setProductCart(Cart)
             })
         });
     }
@@ -84,11 +87,12 @@ class storage {
     }
     // read product in basket
     getproductCart(id) {
-        const _products = Cart.find(p => p.id === parseInt(id))
-        JSON.parse(localStorage.getItem(_products))
+        const _products = JSON.parse(localStorage.getItem("products"))
+
+        return _products.find(p => p.id === parseInt(id))
     }
-    static setProductCart(Cart) {
-        return localStorage.setItem(("carts"), JSON.stringify(Cart))
+    static setProductCart(cart) {
+        return localStorage.setItem(("carts"), JSON.stringify(cart))
     }
 
 }
@@ -102,7 +106,7 @@ document.addEventListener("DOMContentLoaded", event => {
     ui.showProduct(productData)
     storage.savedStorage(productData);
     ui.addBasket();
-  
+
 
 
 })
