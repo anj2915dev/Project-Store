@@ -83,6 +83,7 @@ class UI {
                 console.log(productItem)
                 storage.setProductCart(Cart)
                 this.setSumPrice(Cart);
+              
             })
         });
     }
