@@ -3,6 +3,9 @@ const btnCart = document.querySelector(".cart-btn")
 const basket = document.querySelector(".module-dom")
 const section = document.querySelector("section")
 const body = document.querySelector("body")
+const sumPriceDom = document.querySelector(".sum-price")
+const cartItems = document.querySelector(".cart-items");
+
 
 
 import { Products } from "./productData.js";
@@ -56,24 +59,44 @@ class UI {
         const btnItem = [...btnAdd]
         btnItem.forEach(btn => {
             const id = btn.dataset.id
+            const ischeked = Cart.find(item => item.id === parseInt(id))
 
-            const ischeked = Cart.find(item => item.id ===parseInt)
+
             if (ischeked) {
-                btn.innerText = "aaaaaaaaaaa"
-                btn.style.color="red"
+                btn.innerText = "ثبت شده"
+                btn.style.color = "red"
             }
 
 
-            btn.addEventListener("click", addcart => {
 
+
+
+            btn.addEventListener("click", event => {
+                event.target.innerText = "ثبت شده"
+                event.target.style.color = "red";
+                event.target.disabaled = true;
                 const str = new storage();
                 // read product Previous and product new th
                 const productItem = str.getproductCart(id);
                 console.log(productItem)
-                Cart = [...Cart, { productItem, quantity: 1 }]
+                Cart = [...Cart, {...productItem, quantity: 1 }]
+                console.log(productItem)
                 storage.setProductCart(Cart)
+                this.setSumPrice(Cart);
             })
         });
+    }
+    setSumPrice(Cart) {
+        let sum = 0;
+        const sumPrice = Cart.reduce((acc, curr) => {
+            sum += curr.quantity;
+            return acc + curr.quantity * curr.price;
+
+        }, 0)
+        sumPriceDom.innerText=`مبلغ کل${sumPrice.toFixed(3)}`
+        cartItems.innerText = sum;
+
+
     }
 
 
