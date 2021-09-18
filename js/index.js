@@ -5,6 +5,7 @@ const section = document.querySelector("section")
 const body = document.querySelector("body")
 const sumPriceDom = document.querySelector(".sum-price")
 const cartItems = document.querySelector(".cart-items");
+const cartContent=document.querySelector(".product-basket")
 
 
 
@@ -75,17 +76,19 @@ class UI {
                 event.target.innerText = "ثبت شده"
                 event.target.style.color = "red";
                 event.target.disabaled = true;
-                const str = new storage();
+
                 // read product Previous and product new th
-                const productItem = str.getproductCart(id);
+                const productItem = { ...storage.getproductCart(id), quantity: 1 };
                 console.log(productItem)
-                Cart = [...Cart, {...productItem, quantity: 1 }]
+                Cart = [...Cart,productItem]
                 console.log(productItem)
                 storage.setProductCart(Cart)
                 this.setSumPrice(Cart);
-              
+                this.addProductItem(productItem)
+
             })
         });
+     
     }
     setSumPrice(Cart) {
         let sum = 0;
@@ -94,10 +97,36 @@ class UI {
             return acc + curr.quantity * curr.price;
 
         }, 0)
-        sumPriceDom.innerText=`مبلغ کل${sumPrice.toFixed(3)}`
+        sumPriceDom.innerText = `مبلغ کل${sumPrice.toFixed(3)}`
         cartItems.innerText = sum;
 
 
+    }
+    addProductItem(itemproduct){
+        const div = document.createElement("div");
+        div.classList.add("product-child")
+        div.innerHTML=`     <img class="image-product-dhild" src="${itemproduct.imageUrl}" alt="">
+        <div class="item-product">
+            <div class="contaner-product">
+                <div class="title-and-price">
+                    <h3>
+                        ${itemproduct.title}
+                    </h3>
+                    <h6>
+                    ${itemproduct.price}
+
+                    </h6>
+                </div>
+                <div class="number-product">
+                    <i class="fas fa-sort-up"></i>
+                    <span>
+                        ${itemproduct.quantity}
+                    </span>
+                    <i class="fas fa-caret-down"></i>
+                </div>
+            </div>
+        </div>`
+        cartContent.appendChild(div);
     }
 
 
@@ -110,7 +139,7 @@ class storage {
         localStorage.setItem("products", JSON.stringify(products))
     }
     // read product in basket
-    getproductCart(id) {
+    static getproductCart(id) {
         const _products = JSON.parse(localStorage.getItem("products"))
 
         return _products.find(p => p.id === parseInt(id))
