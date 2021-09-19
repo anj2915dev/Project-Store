@@ -5,7 +5,7 @@ const section = document.querySelector("section")
 const body = document.querySelector("body")
 const sumPriceDom = document.querySelector(".sum-price")
 const cartItems = document.querySelector(".cart-items");
-const cartContent=document.querySelector(".product-basket")
+const cartContent = document.querySelector(".product-basket")
 
 
 
@@ -80,7 +80,7 @@ class UI {
                 // read product Previous and product new th
                 const productItem = { ...storage.getproductCart(id), quantity: 1 };
                 console.log(productItem)
-                Cart = [...Cart,productItem]
+                Cart = [...Cart, productItem]
                 console.log(productItem)
                 storage.setProductCart(Cart)
                 this.setSumPrice(Cart);
@@ -88,7 +88,7 @@ class UI {
 
             })
         });
-     
+
     }
     setSumPrice(Cart) {
         let sum = 0;
@@ -102,10 +102,10 @@ class UI {
 
 
     }
-    addProductItem(itemproduct){
+    addProductItem(itemproduct) {
         const div = document.createElement("div");
         div.classList.add("product-child")
-        div.innerHTML=`     <img class="image-product-dhild" src="${itemproduct.imageUrl}" alt="">
+        div.innerHTML = `     <img class="image-product-dhild" src="${itemproduct.imageUrl}" alt="">
         <div class="item-product">
             <div class="contaner-product">
                 <div class="title-and-price">
@@ -128,6 +128,13 @@ class UI {
         </div>`
         cartContent.appendChild(div);
     }
+    setUp() {
+        Cart = storage.getcart() || [];
+        Cart.forEach(element => this.addProductItem(element))
+        this.setSumPrice(Cart);
+
+
+    }
 
 
 }
@@ -147,6 +154,10 @@ class storage {
     static setProductCart(cart) {
         return localStorage.setItem(("carts"), JSON.stringify(cart))
     }
+    static getcart() {
+        return JSON.parse(localStorage.getItem("carts"))
+
+    }
 
 }
 
@@ -156,6 +167,7 @@ document.addEventListener("DOMContentLoaded", event => {
     const pruduct = new products();
     const productData = pruduct.readProduct
     const ui = new UI()
+    ui.setUp();
     ui.showProduct(productData)
     storage.savedStorage(productData);
     ui.addBasket();
@@ -176,7 +188,7 @@ section.addEventListener("click", closeBasket);
 
 function closeBasket() {
 
-    basket.style.transform = "translateY(-100vh)";
+    basket.style.transform = "translateY(-400vh)";
     basket.style.opacity = "0";
 
 }
