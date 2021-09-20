@@ -6,7 +6,8 @@ const body = document.querySelector("body")
 const sumPriceDom = document.querySelector(".sum-price")
 const cartItems = document.querySelector(".cart-items");
 const cartContent = document.querySelector(".product-basket")
-const btnTrash=document.querySelector(".fa-trash")
+const btnTrash = document.querySelector(".fa-trash")
+const btnCleareAll = document.querySelector(".dlete")
 
 
 
@@ -138,6 +139,16 @@ class UI {
         basket.style.opacity = "0"
 
 
+    }
+    logic() {
+        btnCleareAll.addEventListener("click", () => {
+            Cart.forEach(itemCart => this.removeItem(itemCart.id))
+        })
+    }
+    removeItem(id){
+        Cart= Cart.filter(item=>item.id !==id)
+        this.setSumPrice(Cart) 
+        storage.savedStorage(Cart);
     }
 
 
