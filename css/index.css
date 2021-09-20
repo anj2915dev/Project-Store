@@ -208,7 +208,7 @@ transition: all 1s  ease-in-out;
  .module-dom{
      background-color: var(--mainRed);
      width: 40%;
-     height: 400px;
+     height:auto;
      position: absolute;
    top: 30%;
    right:  30%;
@@ -216,7 +216,10 @@ transition: all 1s  ease-in-out;
      transform:translateY(-100vh);
      transition:all 0.5s ease-in-out ;
      opacity: 1;
-     overflow-y: scroll;
+     display: flex;
+     flex-direction: column;
+     flex-wrap: wrap;
+    
      
  
  }
@@ -232,6 +235,10 @@ transition: all 1s  ease-in-out;
      display: flex;
      align-items: center;
      padding-left: 1rem;
+     width: 100%;
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
  }
  .title-basket{
     display: flex;
@@ -249,7 +256,7 @@ transition: all 1s  ease-in-out;
      width: 90%;
      background-color: var(--seconderyColor);
      border-radius: 8px;
-
+margin: 3px;
      
  }
  .image-product-dhild{
@@ -278,6 +285,35 @@ transition: all 1s  ease-in-out;
      font-size: 1.5rem;
      font-weight:bold ;
      color: #5233da;
+ }
+ .btn{
+     padding:5px  15px ;
+     border-radius: 7px;
+     border: none;
+     outline: none;
+     font-weight: bold;
+    text-transform: uppercase;
+    background-color: #00da00d2;
+    color: var(--mainWhite);
+    cursor: pointer;
+ }
+ .dlete{
+     background-color: red;
+ }
+ .fa-trash{
+     color: red;
+     font-size: 25px;
+     cursor: pointer;
+ }
+ .sum-price{
+     color: whitesmoke;
+     font-weight: bold;
+ }
+ .fa-sort-up{
+     color: #00da00;
+ }
+ .fa-caret-down{
+     color:rgb(240, 62, 62)
  }
 
 

@@ -6,6 +6,7 @@ const body = document.querySelector("body")
 const sumPriceDom = document.querySelector(".sum-price")
 const cartItems = document.querySelector(".cart-items");
 const cartContent = document.querySelector(".product-basket")
+const btnTrash=document.querySelector(".fa-trash")
 
 
 
@@ -124,6 +125,7 @@ class UI {
                     </span>
                     <i class="fas fa-caret-down"></i>
                 </div>
+                <i class="fa fa-trash" aria-hidden="true" data-id:${itemproduct.id}></i>
             </div>
         </div>`
         cartContent.appendChild(div);
@@ -132,6 +134,8 @@ class UI {
         Cart = storage.getcart() || [];
         Cart.forEach(element => this.addProductItem(element))
         this.setSumPrice(Cart);
+        basket.style.transform = "translateY(-400vh)";
+        basket.style.opacity = "0"
 
 
     }
