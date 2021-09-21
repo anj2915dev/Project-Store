@@ -21,7 +21,7 @@ class products {
         return Products;
     }
 }
-
+let buttnsDOM=[];
 
 // show product in html
 
@@ -57,7 +57,9 @@ class UI {
         })
     }
     addBasket() {
-        const btnAdd = document.querySelectorAll(".add-to-cart")
+        const btnAdd =[...document.querySelectorAll(".add-to-cart")]
+        buttnsDOM=btnAdd;
+       
 
         const btnItem = [...btnAdd]
         btnItem.forEach(btn => {
@@ -158,6 +160,10 @@ class UI {
         storage.setProductCart(Cart);
         // update sum price in basket
         this.setSumPrice(Cart)
+
+        const buttns=buttnsDOM.find(btn=>parseInt(btn.dataset.id)===parseInt(id));
+        buttns.innerText="اضافه به سبد خرید"
+       
     }
 
 
@@ -196,7 +202,7 @@ document.addEventListener("DOMContentLoaded", event => {
     ui.showProduct(productData)
     storage.savedStorage(productData);
     ui.addBasket();
-    ui.cartLogic();
+ ui.cartLogic();
 
 
 
