@@ -69,7 +69,7 @@ class UI {
 
             if (ischeked) {
                 btn.innerText = "ثبت شده"
-                btn.style.color = "red"
+
             }
 
 
@@ -78,7 +78,7 @@ class UI {
 
             btn.addEventListener("click", event => {
                 event.target.innerText = "ثبت شده"
-            
+
                 event.target.disabaled = true;
 
                 // read product Previous and product new th
@@ -143,9 +143,9 @@ class UI {
 
     }
     cartLogic() {
-     btnCleareAll.addEventListener("click", () => this.removeDOm() )
+        btnCleareAll.addEventListener("click", () => this.removeDOm())
     }
-    removeDOm(){
+    removeDOm() {
         Cart.forEach(cItem => this.removeItem(cItem.id))
         console.log(cartContent.children)
         while (cartContent.children.length) {
@@ -162,9 +162,13 @@ class UI {
         // update sum price in basket
         this.setSumPrice(Cart)
 
+        this.getSingleButtons(id);
+
+    }
+    getSingleButtons(id) {
         const buttns = buttnsDOM.find(btn => parseInt(btn.dataset.id) === parseInt(id));
         buttns.innerText = "اضافه به سبد خرید"
-
+        buttns.disabaled = false;
     }
 
 
