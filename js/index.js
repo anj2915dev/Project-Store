@@ -122,16 +122,17 @@ class UI {
                     </h6>
                 </div>
                 <div class="number-product">
-                    <i class="fas fa-sort-up"  data-id:${itemproduct.id}></i>
+                    <i class="fas fa-sort-up"  data-id=${itemproduct.id}></i>
                     <span>
                         ${itemproduct.quantity}
                     </span>
-                    <i class="fas fa-caret-down  data-id:${itemproduct.id}"></i>
+                    <i class="fas fa-caret-down  data-id=${itemproduct.id}"></i>
                 </div>
-                <i class="fa fa-trash" aria-hidden="true" data-id:${itemproduct.id}></i>
+                <i class="fa fa-trash" aria-hidden="true" data-id=${itemproduct.id}></i>
             </div>
         </div>`
         cartContent.appendChild(div);
+     
     }
     setUp() {
         Cart = storage.getcart() || [];
@@ -144,6 +145,22 @@ class UI {
     }
     cartLogic() {
         btnCleareAll.addEventListener("click", () => this.removeDOm())
+        cartContent.addEventListener("click", event => {
+            if (event.target.classList.contains("fa-sort-up")) {
+               //  get item from cart
+                const addQuntity = event.target;
+                const addedItem = Cart.find(i => i.id ==addQuntity.dataset.id);
+                addedItem.quantity++
+                // update cart value
+                this.setSumPrice(Cart)
+              
+
+                // save cart
+          storage.setProductCart(Cart)
+               
+            }
+            
+        })
     }
     removeDOm() {
         Cart.forEach(cItem => this.removeItem(cItem.id))
