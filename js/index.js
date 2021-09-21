@@ -120,11 +120,11 @@ class UI {
                     </h6>
                 </div>
                 <div class="number-product">
-                    <i class="fas fa-sort-up"></i>
+                    <i class="fas fa-sort-up"  data-id:${itemproduct.id}></i>
                     <span>
                         ${itemproduct.quantity}
                     </span>
-                    <i class="fas fa-caret-down"></i>
+                    <i class="fas fa-caret-down  data-id:${itemproduct.id}"></i>
                 </div>
                 <i class="fa fa-trash" aria-hidden="true" data-id:${itemproduct.id}></i>
             </div>
@@ -140,16 +140,26 @@ class UI {
 
 
     }
-    logic() {
+    cartLogic() {
         btnCleareAll.addEventListener("click", () => {
-            Cart.forEach(itemCart => this.removeItem(itemCart.id))
+            Cart.forEach(cItem=>this.removeItem(cItem.id))
+            console.log(cartContent.children)
+            while(cartContent.children.length){
+                cartContent.removeChild(cartContent.children[0])
+            }
+        
+
         })
     }
     removeItem(id){
-        Cart= Cart.filter(item=>item.id !==id)
-        this.setSumPrice(Cart) 
-        storage.savedStorage(Cart);
+        // read product id
+        Cart=Cart.filter(item=>item.id!==id);
+        // save product in cart
+        storage.setProductCart(Cart);
+        // update sum price in basket
+        this.setSumPrice(Cart)
     }
+
 
 
 }
@@ -186,6 +196,7 @@ document.addEventListener("DOMContentLoaded", event => {
     ui.showProduct(productData)
     storage.savedStorage(productData);
     ui.addBasket();
+    ui.cartLogic();
 
 
 
