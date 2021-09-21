@@ -21,7 +21,7 @@ class products {
         return Products;
     }
 }
-let buttnsDOM=[];
+let buttnsDOM = [];
 
 // show product in html
 
@@ -57,9 +57,9 @@ class UI {
         })
     }
     addBasket() {
-        const btnAdd =[...document.querySelectorAll(".add-to-cart")]
-        buttnsDOM=btnAdd;
-       
+        const btnAdd = [...document.querySelectorAll(".add-to-cart")]
+        buttnsDOM = btnAdd;
+
 
         const btnItem = [...btnAdd]
         btnItem.forEach(btn => {
@@ -78,7 +78,7 @@ class UI {
 
             btn.addEventListener("click", event => {
                 event.target.innerText = "ثبت شده"
-                event.target.style.color = "red";
+            
                 event.target.disabaled = true;
 
                 // read product Previous and product new th
@@ -143,27 +143,28 @@ class UI {
 
     }
     cartLogic() {
-        btnCleareAll.addEventListener("click", () => {
-            Cart.forEach(cItem=>this.removeItem(cItem.id))
-            console.log(cartContent.children)
-            while(cartContent.children.length){
-                cartContent.removeChild(cartContent.children[0])
-            }
-        
-
-        })
+     btnCleareAll.addEventListener("click", () => this.removeDOm() )
     }
-    removeItem(id){
+    removeDOm(){
+        Cart.forEach(cItem => this.removeItem(cItem.id))
+        console.log(cartContent.children)
+        while (cartContent.children.length) {
+            cartContent.removeChild(cartContent.children[0])
+        }
+        closeBasket();
+
+    }
+    removeItem(id) {
         // read product id
-        Cart=Cart.filter(item=>item.id!==id);
+        Cart = Cart.filter(item => item.id !== id);
         // save product in cart
         storage.setProductCart(Cart);
         // update sum price in basket
         this.setSumPrice(Cart)
 
-        const buttns=buttnsDOM.find(btn=>parseInt(btn.dataset.id)===parseInt(id));
-        buttns.innerText="اضافه به سبد خرید"
-       
+        const buttns = buttnsDOM.find(btn => parseInt(btn.dataset.id) === parseInt(id));
+        buttns.innerText = "اضافه به سبد خرید"
+
     }
 
 
@@ -202,7 +203,7 @@ document.addEventListener("DOMContentLoaded", event => {
     ui.showProduct(productData)
     storage.savedStorage(productData);
     ui.addBasket();
- ui.cartLogic();
+    ui.cartLogic();
 
 
 
