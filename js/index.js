@@ -99,10 +99,11 @@ class UI {
         const sumPrice = Cart.reduce((acc, curr) => {
             sum += curr.quantity;
             return acc + curr.quantity * curr.price;
-
         }, 0)
-        sumPriceDom.innerText = `مبلغ کل${sumPrice.toFixed(3)}`
+        sumPriceDom.innerText = `مبلغ کل${sumPrice.toFixed()}`
         cartItems.innerText = sum;
+
+       
 
 
     }
@@ -132,7 +133,7 @@ class UI {
             </div>
         </div>`
         cartContent.appendChild(div);
-     
+
     }
     setUp() {
         Cart = storage.getcart() || [];
@@ -147,19 +148,22 @@ class UI {
         btnCleareAll.addEventListener("click", () => this.removeDOm())
         cartContent.addEventListener("click", event => {
             if (event.target.classList.contains("fa-sort-up")) {
-               //  get item from cart
+                //  get item from cart
                 const addQuntity = event.target;
-                const addedItem = Cart.find(i => i.id ==addQuntity.dataset.id);
+                const addedItem = Cart.find(i => i.id == addQuntity.dataset.id);
                 addedItem.quantity++
                 // update cart value
                 this.setSumPrice(Cart)
-              
+
 
                 // save cart
-          storage.setProductCart(Cart)
-               
+                storage.setProductCart(Cart)
+
+                //update in ui
+                addQuntity.nextElementSibling.innerText=addedItem.quantity
+
             }
-            
+
         })
     }
     removeDOm() {
