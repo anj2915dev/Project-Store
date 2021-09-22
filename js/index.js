@@ -77,9 +77,11 @@ class UI {
 
 
             btn.addEventListener("click", event => {
+
                 event.target.innerText = "ثبت شده"
 
                 event.target.disabaled = true;
+
 
                 // read product Previous and product new th
                 const productItem = { ...storage.getproductCart(id), quantity: 1 };
@@ -103,7 +105,7 @@ class UI {
         sumPriceDom.innerText = `مبلغ کل${sumPrice.toFixed()}`
         cartItems.innerText = sum;
 
-       
+
 
 
     }
@@ -160,8 +162,20 @@ class UI {
                 storage.setProductCart(Cart)
 
                 //update in ui
-                addQuntity.nextElementSibling.innerText=addedItem.quantity
+                addQuntity.nextElementSibling.innerText = addedItem.quantity
 
+            }
+            else if (event.target.classList.contains("fa-trash")) {
+                const remove1 = event.target;
+                // read product 
+                const _removeItem = Cart.find(item => item.id == remove1.dataset.id);
+                // remove product 
+                this.removeItem(_removeItem.id)
+                // saved product
+                storage.setProductCart(Cart)
+                // remove in ui
+                cartContent.removeChild(remove1.parentElement.parentElement.parentElement)
+                
             }
 
         })
