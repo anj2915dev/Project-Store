@@ -22,6 +22,7 @@ class products {
     }
 }
 let buttnsDOM = [];
+let x;
 
 // show product in html
 
@@ -81,7 +82,8 @@ class UI {
                 event.target.innerText = "ثبت شده"
 
                 event.target.disabaled = true;
-
+          
+              
 
                 // read product Previous and product new th
                 const productItem = { ...storage.getproductCart(id), quantity: 1 };
@@ -175,7 +177,7 @@ class UI {
                 storage.setProductCart(Cart)
                 // remove in ui
                 cartContent.removeChild(remove1.parentElement.parentElement.parentElement)
-                
+
             }
 
         })
