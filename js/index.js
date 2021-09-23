@@ -12,7 +12,7 @@ const btnCleareAll = document.querySelector(".dlete")
 
 
 import { Products } from "./productData.js";
-
+import { showAndCloseNotfiction } from "./notification.js";
 let Cart = [];
 
 //  read product 
@@ -82,7 +82,7 @@ class UI {
                 event.target.innerText = "ثبت شده"
 
                 event.target.disabaled = true;
-          
+           showAndCloseNotfiction(x)
               
 
                 // read product Previous and product new th
