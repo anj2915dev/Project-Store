@@ -82,8 +82,8 @@ class UI {
                 event.target.innerText = "ثبت شده"
 
                 event.target.disabaled = true;
-           showAndCloseNotfiction(x)
-              
+                showAndCloseNotfiction(x)
+
 
                 // read product Previous and product new th
                 const productItem = { ...storage.getproductCart(id), quantity: 1 };
@@ -131,7 +131,7 @@ class UI {
                     <span>
                         ${itemproduct.quantity}
                     </span>
-                    <i class="fas fa-caret-down  data-id=${itemproduct.id}"></i>
+                    <i class="fas fa-caret-down" data-id=${itemproduct.id}></i>
                 </div>
                 <i class="fa fa-trash" aria-hidden="true" data-id=${itemproduct.id}></i>
             </div>
@@ -155,6 +155,7 @@ class UI {
                 //  get item from cart
                 const addQuntity = event.target;
                 const addedItem = Cart.find(i => i.id == addQuntity.dataset.id);
+              
                 addedItem.quantity++
                 // update cart value
                 this.setSumPrice(Cart)
@@ -177,6 +178,27 @@ class UI {
                 storage.setProductCart(Cart)
                 // remove in ui
                 cartContent.removeChild(remove1.parentElement.parentElement.parentElement)
+
+            }
+            else if (event.target.classList.contains("fa-caret-down")) {
+                const lowItem = event.target;
+                const lowProduct = Cart.find(p => p.id ==lowItem.dataset.id);
+                lowProduct.quantity--;
+
+          
+
+                //update in ui
+                lowItem.previousElementSibling.innerText=lowProduct.quantity
+                if(lowProduct.quantity===0){
+                    this.removeItem(lowProduct.id)
+                    cartContent.removeChild(lowItem.parentElement.parentElement.parentElement.parentElement)
+                }
+                this.setSumPrice(Cart);
+
+
+                // save cart
+                storage.setProductCart(Cart)
+
 
             }
 
